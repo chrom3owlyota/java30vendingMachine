@@ -52,8 +52,9 @@ public class AppRunner {
 
     private UniversalArray<Product> getAllowedProducts() {
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
+        int total = cashAcceptor.getAmount() + coinAcceptor.getAmount();
         for (int i = 0; i < products.size(); i++) {
-            if (coinAcceptor.getAmount() >= products.get(i).getPrice()) {
+            if (total >= products.get(i).getPrice()) {
                 allowProducts.add(products.get(i));
             }
         }
