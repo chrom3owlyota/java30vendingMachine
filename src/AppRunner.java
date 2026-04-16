@@ -38,8 +38,9 @@ public class AppRunner {
     private void startSimulation() {
         print("В автомате доступны:");
         showProducts(products);
+        int totalBalance = coinAcceptor.getAmount() + cashAcceptor.getAmount();
 
-        print("Монет на сумму: " + coinAcceptor.getAmount());
+        print("Общий баланс: " + totalBalance);
 
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
@@ -63,10 +64,25 @@ public class AppRunner {
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
         if ("a".equalsIgnoreCase(action)) {
-            coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
-            print("Вы пополнили баланс на 10");
-            return;
-        }
+            print("Выберите способ пополнения: ");
+            print("1 - Монетоприемник ");
+            print("2 - Купюроприемник ");
+            String method = fromConsole();
+
+            if ("1".equals(method)) {
+                coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
+                print("Вы пополнили баланс на 10");
+            } else if ("2".equals(method)) {
+                print("Введите сумму для пополнения наличными ");
+                try {
+                    int cash = Integer.parseInt(fromConsole());
+                    cashAcceptor.deposit(cash);
+                    print("Вы пополнили баланс на " + cash);
+                } catch (NumberFormatException e) {
+                    print("Ошибка. Введите число");
+                }
+            }
+        } return;
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
