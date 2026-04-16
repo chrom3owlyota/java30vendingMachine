@@ -15,6 +15,8 @@ public class AppRunner {
 
     private static boolean isExit = false;
 
+    private final Scanner scanner = new Scanner(System.in);
+
     private AppRunner() {
         products.addAll(new Product[]{
                 new Water(ActionLetter.B, 20),
@@ -83,7 +85,7 @@ public class AppRunner {
                 }
             } else {
                 print("Ошибка. Для выбора действия выберите быть 1 или 2");
-            }
+            } return;
         }
         try {
             for (int i = 0; i < products.size(); i++) {
@@ -94,7 +96,7 @@ public class AppRunner {
                     } else {
                         int remaining = price - cashAcceptor.getAmount();
                         cashAcceptor.setAmount(0);
-                        coinAcceptor.setAmount(cashAcceptor.getAmount() - remaining);
+                        coinAcceptor.setAmount(coinAcceptor.getAmount() - remaining);
                     }
                     break;
                 }
@@ -118,7 +120,7 @@ public class AppRunner {
     }
 
     private String fromConsole() {
-        return new Scanner(System.in).nextLine();
+        return scanner.nextLine();
     }
 
     private void showProducts(UniversalArray<Product> products) {
