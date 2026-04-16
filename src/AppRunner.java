@@ -81,8 +81,10 @@ public class AppRunner {
                 } catch (NumberFormatException e) {
                     print("Ошибка. Введите число");
                 }
+            } else {
+                print("Ошибка. Для выбора действия выберите быть 1 или 2");
             }
-        } return;
+        }
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
